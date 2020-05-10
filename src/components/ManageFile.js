@@ -9,7 +9,6 @@ export const ManageFile = () => {
   const { filteredData } = useSelector((state) => state.upload);
 
   const inputFile = useRef(null);
-
   const onButtonClick = () => {
     inputFile.current.click();
   };

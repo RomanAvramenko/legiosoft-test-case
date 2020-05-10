@@ -1,8 +1,8 @@
 import axios from "axios";
-import { call, fork, all, put, select, cancel } from "redux-saga/effects";
+import { call, fork, all, put, takeEvery } from "redux-saga/effects";
 import MockAdapter from "axios-mock-adapter";
 import { uploadMock } from "./actions";
-import { uploadFileReducer } from "./reducers";
+import { LOAD_MOCK } from "./actionTypes";
 
 const mock = new MockAdapter(axios);
 
@@ -19,14 +19,12 @@ mock.onGet("./data").reply(200, [
 ]);
 
 function* watchUploadMock() {
-  const {
-    upload: { filteredData },
-  } = yield select();
+  yield takeEvery(LOAD_MOCK, workerUploadMock);
+}
+
+function* workerUploadMock() {
   const { data } = yield call(axios.get, "./data");
-  console.log(filteredData);
-  if (filteredData === null) {
-    yield put(uploadMock(data));
-  }
+  yield put(uploadMock(data));
 }
 
 export function* rootSaga() {

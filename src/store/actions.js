@@ -1,6 +1,7 @@
 import {
   UPLOAD_FILE,
   UPLOAD_MOCK,
+  LOAD_MOCK,
   DELETE_TRANSACTION_CANCEL,
   DELETE_TRANSACTION_SUCCESS,
   MENU_STATUS_FILTER,
@@ -27,6 +28,12 @@ export const uploadMock = (array) => {
     type: UPLOAD_MOCK,
     tebleHeader: array[0],
     payload: array[1],
+  };
+};
+
+export const loadMock = () => {
+  return {
+    type: LOAD_MOCK,
   };
 };
 
