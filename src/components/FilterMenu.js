@@ -15,13 +15,17 @@ export const FilterMenu = () => {
   } = useSelector((state) => state);
   const dispatch = useDispatch();
   const handleStatus = (e) => {
-    dispatch(statusMenuFilter(e.target.value));
-    dispatch(paginationCurrentPage(1));
+    if (modifiedData) {
+      dispatch(statusMenuFilter(e.target.value));
+      dispatch(paginationCurrentPage(1));
+    }
   };
 
   const handleType = (e) => {
-    dispatch(typeMenuFilter(e.target.value));
-    dispatch(paginationCurrentPage(1));
+    if (modifiedData) {
+      dispatch(typeMenuFilter(e.target.value));
+      dispatch(paginationCurrentPage(1));
+    }
   };
 
   useEffect(() => {

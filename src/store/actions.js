@@ -1,5 +1,6 @@
 import {
-  UPLOAD_FILE_SUCCESS,
+  UPLOAD_FILE,
+  UPLOAD_MOCK,
   DELETE_TRANSACTION_CANCEL,
   DELETE_TRANSACTION_SUCCESS,
   MENU_STATUS_FILTER,
@@ -15,9 +16,17 @@ import {
 
 export const uploadData = (data) => {
   return {
-    type: UPLOAD_FILE_SUCCESS,
+    type: UPLOAD_FILE,
     tebleHeader: data[0],
     payload: data.filter((i, index) => index !== 0),
+  };
+};
+
+export const uploadMock = (array) => {
+  return {
+    type: UPLOAD_MOCK,
+    tebleHeader: array[0],
+    payload: array[1],
   };
 };
 

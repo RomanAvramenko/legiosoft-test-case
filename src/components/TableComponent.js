@@ -8,7 +8,7 @@ import { ModalForm } from "./ModalForm";
 
 export const TableComponent = () => {
   const {
-    upload: { tebleHeader, filteredData },
+    upload: { tebleHeader, filteredData},
     pagination: { currentPage, pageSize },
     modal: { open },
   } = useSelector((state) => state);

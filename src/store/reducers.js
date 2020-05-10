@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
-  UPLOAD_FILE_SUCCESS,
+  UPLOAD_FILE,
+  UPLOAD_MOCK,
   DELETE_TRANSACTION_SUCCESS,
   DELETE_TRANSACTION_CANCEL,
   MENU_STATUS_FILTER,
@@ -14,6 +15,7 @@ import {
 } from "./actionTypes";
 
 const initialState = {
+  uploaded: false,
   tebleHeader: null,
   modifiedData: null,
   filteredData: null,
@@ -37,12 +39,19 @@ const modalState = {
 
 export const uploadFileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPLOAD_FILE_SUCCESS:
+    case UPLOAD_FILE:
       return {
         ...state,
+        uploaded: true,
         tebleHeader: action.tebleHeader,
         modifiedData: action.payload,
       };
+      case UPLOAD_MOCK:
+        return {
+          ...state,
+          tebleHeader: action.tebleHeader,
+          modifiedData: action.payload,
+        };
     case DELETE_TRANSACTION_SUCCESS:
       return {
         ...state,

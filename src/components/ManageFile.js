@@ -23,12 +23,14 @@ export const ManageFile = () => {
   };
 
   const onExportFile = () => {
-    const hiddenElement = document.createElement("a");
-    hiddenElement.href =
-      "data:text/csv;charset=utf-8," + encodeURI(Papa.unparse(filteredData));
-    hiddenElement.target = "_blank";
-    hiddenElement.download = "transactions.csv";
-    hiddenElement.click();
+    if (filteredData) {
+      const hiddenElement = document.createElement("a");
+      hiddenElement.href =
+        "data:text/csv;charset=utf-8," + encodeURI(Papa.unparse(filteredData));
+      hiddenElement.target = "_blank";
+      hiddenElement.download = "transactions.csv";
+      hiddenElement.click();
+    }
   };
 
   return (
