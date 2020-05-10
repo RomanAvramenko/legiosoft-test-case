@@ -1,26 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { FilterMenu } from "./components/FilterMenu";
+import "./App.scss";
+import { ManageFile } from "./components/ManageFile";
+import { TableComponent } from "./components/TableComponent";
+import { useSelector } from "react-redux";
 
-function App() {
+export const App = () => {
+  const { filteredData } = useSelector((state) => state.upload);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App__options">
+        <FilterMenu />
+        <ManageFile />
+      </div>
+      {filteredData && <TableComponent />}
     </div>
   );
-}
-
-export default App;
+};
