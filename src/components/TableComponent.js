@@ -1,22 +1,15 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { deleteTransaction, modalOpen } from "../store/actions";
-import { Paginator } from "./Paginator";
-import { ModalForm } from "./ModalForm";
+import { PaginatorContainer } from "./PaginatorContainer";
 
-export const TableComponent = () => {
-  const {
-    upload: { tebleHeader, filteredData},
-    pagination: { currentPage, pageSize },
-    modal: { open },
-  } = useSelector((state) => state);
-  const dispatch = useDispatch();
-  //Get Current Table Row
-  const indexOfLastRow = currentPage * pageSize;
-  const indexOfFirstRow = indexOfLastRow - pageSize;
-  const currentRows = filteredData.slice(indexOfFirstRow, indexOfLastRow);
+export const TableComponent = ({
+  tebleHeader,
+  currentRows,
+  openModalHandler,
+  deleteTransactionHandler,
+}) => {
+
   const renderTable = currentRows.map((row) => {
     return (
       <tr key={row[0]}>
@@ -27,14 +20,14 @@ export const TableComponent = () => {
           <Button
             variant="primary"
             className="Table__btn"
-            onClick={() => dispatch(modalOpen(row, row[1]))}
+            onClick={() => openModalHandler(row)}
           >
             Edit
           </Button>
           <Button
             variant="light"
             className="Table__btn"
-            onClick={() => dispatch(deleteTransaction(row[0]))}
+            onClick={() => deleteTransactionHandler(row)}
           >
             Delete
           </Button>
@@ -45,24 +38,21 @@ export const TableComponent = () => {
 
   return (
     <>
-      {open && <ModalForm />}
       <div className="Table">
-        {filteredData && (
-          <Table striped bordered hover size="sm" className="Table__rows">
-            <thead>
-              <tr>
-                <th>{tebleHeader[0].slice(-2)}</th>
-                <th>{tebleHeader[1]}</th>
-                <th>{tebleHeader[2]}</th>
-                <th>{tebleHeader[3].replace(/([A-Z])/g, " $1")}</th>
-                <th>{tebleHeader[4]}</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>{renderTable}</tbody>
-          </Table>
-        )}
-        <Paginator />
+        <Table striped bordered hover size="sm" className="Table__rows">
+          <thead>
+            <tr>
+              <th>{tebleHeader[0].slice(-2)}</th>
+              <th>{tebleHeader[1]}</th>
+              <th>{tebleHeader[2]}</th>
+              <th>{tebleHeader[3].replace(/([A-Z])/g, " $1")}</th>
+              <th>{tebleHeader[4]}</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>{renderTable}</tbody>
+        </Table>
+        <PaginatorContainer />
       </div>
     </>
   );
