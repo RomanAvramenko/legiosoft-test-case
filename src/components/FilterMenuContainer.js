@@ -7,6 +7,11 @@ import {
   typeMenuFilter,
   menuFilter,
 } from "../store/actions";
+import {
+  selectTypeFilter,
+  selectStatusFilter,
+  composedSelector,
+} from "../store/selectors";
 
 export const FilterMenuContainer = () => {
   const dispatch = useDispatch();
@@ -15,6 +20,9 @@ export const FilterMenuContainer = () => {
     filter: { statusFilter, typeFilter },
     upload: { modifiedData },
   } = useSelector((state) => state);
+  const statusFilterArr = useSelector(selectStatusFilter);
+  const typeFilterArr = useSelector(selectTypeFilter);
+  const bothFilterArr = useSelector(composedSelector);
 
   const handleStatus = (e) => {
     if (modifiedData) {
@@ -31,25 +39,19 @@ export const FilterMenuContainer = () => {
   };
 
   useEffect(() => {
-    let filteredArray = [];
     if (statusFilter !== "" && typeFilter === "") {
       //status filter
-      filteredArray.push(modifiedData.filter((row) => row[1] === statusFilter));
+      dispatch(menuFilter(statusFilterArr));
     } else if (typeFilter !== "" && statusFilter === "") {
       //type filter
-      filteredArray.push(modifiedData.filter((row) => row[2] === typeFilter));
+      dispatch(menuFilter(typeFilterArr));
     } else if (statusFilter !== "" && typeFilter !== "") {
       //both filters
-      filteredArray.push(
-        modifiedData
-          .filter((row) => row[1] === statusFilter)
-          .filter((row) => row[2] === typeFilter)
-      );
+      dispatch(menuFilter(bothFilterArr));
     } else {
       //no filtes
-      filteredArray.push(modifiedData);
+      dispatch(menuFilter(modifiedData));
     }
-    dispatch(menuFilter(filteredArray[0]));
     // eslint-disable-next-line
   }, [modifiedData, statusFilter, typeFilter]);
   return <FilterMenu handleStatus={handleStatus} handleType={handleType} />;
