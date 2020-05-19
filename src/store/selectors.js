@@ -1,21 +1,21 @@
 import { createSelector } from "reselect";
 
-const array = (state) => state.upload.modifiedData;
-const status = (state) => state.filter.statusFilter;
-const type = (state) => state.filter.typeFilter;
+const getAllArray = (state) => state.upload.modifiedData;
+const getStatus = (state) => state.filter.statusFilter;
+const getType = (state) => state.filter.typeFilter;
 
 export const selectStatusFilter = createSelector(
-  [array, status],
+  [getAllArray, getStatus],
   (allArr, status) => allArr.filter((row) => row[1] === status)
 );
 
 export const selectTypeFilter = createSelector(
-  [array, type],
+  [getAllArray, getType],
   (allArr, type) => allArr.filter((row) => row[2] === type)
 );
 
 export const composedSelector = createSelector(
-  [array, status, type],
+  [getAllArray, getStatus, getType],
   (allArr, status, type) =>
     allArr.filter((row) => row[1] === status).filter((row) => row[2] === type)
-  );
+);

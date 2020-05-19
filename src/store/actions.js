@@ -6,7 +6,6 @@ import {
   DELETE_TRANSACTION_SUCCESS,
   MENU_STATUS_FILTER,
   MENU_TYPE_FILTER,
-  MENU_FILTER,
   PAGINATION_CURRENT_PAGE,
   PAGINATION_PAGE_SIZE,
   MODAL_OPEN,
@@ -62,13 +61,6 @@ export const statusMenuFilter = (param) => {
   return {
     type: MENU_STATUS_FILTER,
     payload: param,
-  };
-};
-
-export const menuFilter = (array) => {
-  return {
-    type: MENU_FILTER,
-    payload: array,
   };
 };
 

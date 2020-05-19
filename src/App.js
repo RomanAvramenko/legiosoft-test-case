@@ -11,12 +11,12 @@ export const App = () => {
   const dispatch = useDispatch();
 
   const {
-    upload: { filteredData, modifiedData },
+    upload: { modifiedData },
     modal: { open },
   } = useSelector((state) => state);
 
   useEffect(() => {
-    if (filteredData === null && modifiedData === null) {
+    if (modifiedData === null) {
       dispatch(loadMock());
     }
     // eslint-disable-next-line
@@ -29,7 +29,7 @@ export const App = () => {
         <ManageFileContainer />
       </div>
       {open && <ModalFormContainer />}
-      {filteredData && <TableContainer />}
+      {modifiedData && <TableContainer />}
     </div>
   );
 };

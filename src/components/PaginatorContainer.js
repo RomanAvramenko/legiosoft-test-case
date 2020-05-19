@@ -7,11 +7,11 @@ import Pagination from "react-bootstrap/Pagination";
 export const PaginatorContainer = () => {
   const dispatch = useDispatch();
   const {
-    upload: { filteredData },
+    upload: { modifiedData },
     pagination: { currentPage, pageSize },
   } = useSelector((state) => state);
 
-  const pagesCount = Math.ceil(filteredData.length / pageSize);
+  const pagesCount = Math.ceil(modifiedData.length / pageSize);
   const pageHandler = (num) => {
     dispatch(paginationCurrentPage(num));
   };

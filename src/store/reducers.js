@@ -18,7 +18,6 @@ const initialState = {
   uploaded: false,
   tebleHeader: null,
   modifiedData: null,
-  filteredData: null,
 };
 
 const filterState = {
@@ -58,9 +57,6 @@ export const uploadFileReducer = (state = initialState, action) => {
         modifiedData: [
           ...state.modifiedData.filter((el) => el[0] !== action.payload),
         ],
-        filteredData: [
-          ...state.filteredData.filter((el) => el[0] !== action.payload),
-        ],
       };
     case SAVE_TRANSACTION_CHANGES:
       return {
@@ -73,11 +69,6 @@ export const uploadFileReducer = (state = initialState, action) => {
       };
     case DELETE_TRANSACTION_CANCEL:
       return state;
-    case MENU_FILTER:
-      return {
-        ...state,
-        filteredData: action.payload,
-      };
     default:
       return state;
   }
