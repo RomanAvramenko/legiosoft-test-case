@@ -16,8 +16,8 @@ export const ModalFormContainer = () => {
   };
 
   const saveButtonHandler = () => {
-    const editedArray = array.splice(1, 1, option);
-    dispatch(saveTransactionChanges(editedArray, option));
+    array.Status = option;
+    dispatch(saveTransactionChanges(array.Status, option));
     dispatch(modalClose());
   };
 

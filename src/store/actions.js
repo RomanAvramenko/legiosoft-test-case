@@ -17,16 +17,14 @@ import {
 export const uploadData = (data) => {
   return {
     type: UPLOAD_FILE,
-    tebleHeader: data[0],
-    payload: data.filter((i, index) => index !== 0),
+    payload: data,
   };
 };
 
 export const uploadMock = (array) => {
   return {
     type: UPLOAD_MOCK,
-    tebleHeader: array[0],
-    payload: array[1],
+    payload: array,
   };
 };
 

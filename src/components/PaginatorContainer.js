@@ -4,14 +4,13 @@ import { paginationCurrentPage } from "../store/actions";
 import { Paginator } from "./Paginator";
 import Pagination from "react-bootstrap/Pagination";
 
-export const PaginatorContainer = () => {
+export const PaginatorContainer = ({currentData}) => {
   const dispatch = useDispatch();
   const {
-    upload: { modifiedData },
     pagination: { currentPage, pageSize },
   } = useSelector((state) => state);
 
-  const pagesCount = Math.ceil(modifiedData.length / pageSize);
+  const pagesCount = Math.ceil(currentData().length / pageSize);
   const pageHandler = (num) => {
     dispatch(paginationCurrentPage(num));
   };

@@ -17,6 +17,7 @@ export const ManageFileContainer = () => {
 
   const onImportFile = (event) => {
     Papa.parse(event.target.files[0], {
+      header: true,
       complete: (results) => {
         dispatch(uploadData(results.data));
       },

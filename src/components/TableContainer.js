@@ -7,13 +7,14 @@ import {
   selectStatusFilter,
   composedSelector,
 } from "../store/selectors";
+import { PaginatorContainer } from "./PaginatorContainer";
 
 export const TableContainer = () => {
   const dispatch = useDispatch();
 
   const {
     filter: { statusFilter, typeFilter },
-    upload: { tebleHeader, modifiedData },
+    upload: { modifiedData },
     pagination: { currentPage, pageSize },
   } = useSelector((state) => state);
 
@@ -42,19 +43,22 @@ export const TableContainer = () => {
   const currentRows = currentData().slice(indexOfFirstRow, indexOfLastRow);
 
   const openModalHandler = (row) => {
-    dispatch(modalOpen(row, row[1]));
+    dispatch(modalOpen(row, row.Status));
   };
 
   const deleteTransactionHandler = (row) => {
-    dispatch(deleteTransaction(row[0]));
+    dispatch(deleteTransaction(row.TransactionId));
   };
 
   return (
-    <TableComponent
-      currentRows={currentRows}
-      tebleHeader={tebleHeader}
-      openModalHandler={openModalHandler}
-      deleteTransactionHandler={deleteTransactionHandler}
-    />
+    <>
+      <TableComponent
+        currentRows={currentRows}
+        tebleHeader={modifiedData}
+        openModalHandler={openModalHandler}
+        deleteTransactionHandler={deleteTransactionHandler}
+      />
+      <PaginatorContainer currentData={currentData} />
+    </>
   );
 };

@@ -11,12 +11,10 @@ import {
   MODAL_CLOSE,
   MODAL_OPTION,
   SAVE_TRANSACTION_CHANGES,
-  MENU_FILTER,
 } from "./actionTypes";
 
 const initialState = {
   uploaded: false,
-  tebleHeader: null,
   modifiedData: null,
 };
 
@@ -42,20 +40,20 @@ export const uploadFileReducer = (state = initialState, action) => {
       return {
         ...state,
         uploaded: true,
-        tebleHeader: action.tebleHeader,
         modifiedData: action.payload,
       };
-      case UPLOAD_MOCK:
-        return {
-          ...state,
-          tebleHeader: action.tebleHeader,
-          modifiedData: action.payload,
-        };
+    case UPLOAD_MOCK:
+      return {
+        ...state,
+        modifiedData: action.payload,
+      };
     case DELETE_TRANSACTION_SUCCESS:
       return {
         ...state,
         modifiedData: [
-          ...state.modifiedData.filter((el) => el[0] !== action.payload),
+          ...state.modifiedData.filter(
+            (el) => el.TransactionId !== action.payload
+          ),
         ],
       };
     case SAVE_TRANSACTION_CHANGES:
@@ -63,7 +61,9 @@ export const uploadFileReducer = (state = initialState, action) => {
         ...state,
         modifiedData: [
           ...state.modifiedData.map((row) => {
-            return row[0] === action.array[0] ? action.array : row;
+            return row.TransactionId === action.array.TransactionId
+              ? action.array
+              : row;
           }),
         ],
       };
